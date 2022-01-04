@@ -397,6 +397,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
+        cameraCaptureSession.close()
         cameraDevice.close()
     }
 
@@ -404,6 +405,6 @@ class MainActivity : AppCompatActivity() {
 
     }
     fun stop(view: View) {
-        
+
     }
 }
