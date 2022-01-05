@@ -74,15 +74,15 @@ class MainActivity : AppCompatActivity() {
         initData()
     }
 
-    fun initView() {
+    private fun initView() {
         tvCamera = findViewById(R.id.tv_camera)
         clLayout = findViewById(R.id.cl_layout)
 
-        //预览角度
+        //预览角度（适合横屏，竖屏需要自行调整）
         tvCamera.rotation = 180F
     }
 
-    fun initData() {
+    private fun initData() {
         handlerThread = HandlerThread("bg")
         handlerThread.start()
         bgHandler = Handler(handlerThread.looper)
@@ -383,6 +383,7 @@ class MainActivity : AppCompatActivity() {
     fun take(view: View) {
         //拍照
         captureRequestBuilder.addTarget(mImageReader.surface)
+        //设置图片方向（适合横屏，竖屏需要自行调整）
         captureRequestBuilder.set(CaptureRequest.JPEG_ORIENTATION, 180)
         captureRequestBuilder.set(CaptureRequest.JPEG_QUALITY, 100.toByte())
 
@@ -404,6 +405,7 @@ class MainActivity : AppCompatActivity() {
     fun start(view: View) {
 
     }
+
     fun stop(view: View) {
 
     }

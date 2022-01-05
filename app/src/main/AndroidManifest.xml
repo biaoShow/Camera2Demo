@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.biao.camera2demo">
 
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/><!--音频录制权限-->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 音频录制权限 -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -13,13 +13,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Camera2Demo">
-        <activity android:name=".FaceActivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".VideoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity">
+
         </activity>
     </application>
 
