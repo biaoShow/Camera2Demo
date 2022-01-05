@@ -18,6 +18,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import java.util.*
 
 
@@ -29,6 +30,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var cameraCaptureSession: CameraCaptureSession
     private lateinit var handlerThread: HandlerThread
     private lateinit var bgHandler: Handler
+
+    private val permissions = arrayOf(
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO
+    )
 
     //图像宽高
     private var width: Int = 1280
@@ -70,9 +76,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        requestPermissions()
         initView()
         initData()
     }
+
+    private fun requestPermissions() {
+        permissions.forEach {
+            if (ContextCompat.checkSelfPermission(this, it)
+                != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(this, permissions, 0x01)
+            }
+        }
+    }
+
 
     private fun initView() {
         tvCamera = findViewById(R.id.tv_camera)

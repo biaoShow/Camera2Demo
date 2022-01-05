@@ -21,6 +21,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 
 class VideoActivity : AppCompatActivity() {
     private val TAG = VideoActivity::class.java.simpleName
@@ -35,6 +36,11 @@ class VideoActivity : AppCompatActivity() {
 
     private lateinit var handlerThread: HandlerThread
     private lateinit var bgHandler: Handler
+
+    private val permissions = arrayOf(
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO
+    )
 
     private val textureListener = object : TextureView.SurfaceTextureListener {
         override fun onSurfaceTextureAvailable(surface: SurfaceTexture, width: Int, height: Int) {
@@ -61,8 +67,19 @@ class VideoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_video)
 
+        requestPermissions()
         initView()
         initData()
+    }
+
+    private fun requestPermissions() {
+        permissions.forEach {
+            if (ContextCompat.checkSelfPermission(this, it)
+                != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(this, permissions, 0x01)
+            }
+        }
     }
 
     private fun initView() {
